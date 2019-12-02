@@ -75,7 +75,7 @@ class RegistrationScreen extends React.Component {
    <div className="d-flex justify-content-center p-2 p-sm-3"  > 
         <form  style={{maxWidth:"500px",width:"100%"}}>
             <h2>רישום</h2>
-            <Link to="/login" style={{fontSize:"0.7em", marginTop:"10vh", color:"white"}}>משתמש קיים? להתחברות</Link>
+            <Link to="/" style={{fontSize:"0.7em", marginTop:"10vh", color:"white"}}>משתמש קיים? להתחברות</Link>
             <br/>
             <br/>
             <div className="form-group" >

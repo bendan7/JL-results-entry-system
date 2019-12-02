@@ -1,6 +1,6 @@
 import React from 'react';
 import './loginScreen.css';
-import {Link,} from "react-router-dom";
+import {Link,Redirect} from "react-router-dom";
 
 
 class LoginScreen extends React.Component {
@@ -23,11 +23,12 @@ class LoginScreen extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     console.log(this.state)
-    if (true){
+    if (false){
       this.setState({msg:"שם משתמש או סיסמא אינם נכונים"})
     }
     // move to dashboard
-    return "false"
+    this.setState({msg:<Redirect to="/dashboard" />})
+    return <Redirect to="/dashboard" />
   }
 
   

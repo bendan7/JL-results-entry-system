@@ -12,7 +12,7 @@ import {
 function Router() {
   return (
     <Switch>
-        <Route exact path="/login">
+        <Route exact path="/">
             <LoginScreen />
         </Route>
         <Route exact path="/registration">

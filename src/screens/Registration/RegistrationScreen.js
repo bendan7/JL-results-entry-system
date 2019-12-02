@@ -23,10 +23,10 @@ class RegistrationScreen extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.input_validation()
-    console.log(this.state)
-    if (true){
-      //this.setState({msg:"שם משתמש או סיסמא אינם נכונים"})
+    
+    if (this.input_validation()){
+      console.log(this.state)
+      
     }
     // move to dashboard
     return "false"
@@ -34,24 +34,38 @@ class RegistrationScreen extends React.Component {
 
   input_validation(){
     const vali_msg = []
-    
-    if (this.state.first_name === undefined){
+  
+    if (this.state.first_name === undefined || this.state.first_name ===""){
       vali_msg.push("חסר שם פרטי")
     }
-    if (this.state.last_name === undefined){
+    if (this.state.last_name === undefined || this.state.last_name ===""){
       vali_msg.push("חסר שם משפחה")
     }
-    if (this.state.email === undefined){
+    if (this.state.email === undefined || this.state.email ===""){
       vali_msg.push("חסר איימיל")
     }
-    if (this.state.password === undefined){
+    else {
+      if (!(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(this.state.email)))
+      {
+        vali_msg.push("איימיל לא תקין")
+      }
+
+    }
+    if (this.state.password === undefined || this.state.password ===""){
       vali_msg.push("חסר סיסמא")
     }
-    if (this.state.password !== this.state.password_conf ){
+    if (this.state.password !== this.state.password_conf || this.state.first_name ===""){
       vali_msg.push("סיסמאות לא תואמות")
     }
-    
+
     this.setState({msg:vali_msg})
+
+    if (0 < vali_msg.length){
+      // validation not pass
+      return false
+    }
+    return true
+    
   }
 
   
@@ -83,7 +97,7 @@ class RegistrationScreen extends React.Component {
                 <input type="password" name="password_conf" className="form-control" onChange={this.handleChange} placeholder="אימות סיסמא" />
             </div>
             <div style={{marginBottom:"10px"}}>
-              {this.state.msg ? this.state.msg.map((msg)=>{return <li >{msg}</li>}) :  null}
+              {this.state.msg ? this.state.msg.map((msg)=>{return <li key={msg} >{msg}</li>}) :  null}
             </div>
             <input type="submit" value="רשום משתמש" className="btn btn-lg btn-outline-light" onClick={this.handleSubmit}/>   
         </form>     

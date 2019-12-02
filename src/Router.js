@@ -5,6 +5,7 @@ import {
   } from "react-router-dom";
   import LoginScreen from './screens/login/LoginScreen'
   import RegistrationScreen from './screens/Registration/RegistrationScreen'
+  import Dashboard from './screens/Dashboard/Dashboard'
 
 
 
@@ -17,7 +18,9 @@ function Router() {
         <Route exact path="/registration">
             <RegistrationScreen />
         </Route>
-
+        <Route exact path="/dashboard">
+            <Dashboard />
+        </Route>
   </Switch>
   );
 }

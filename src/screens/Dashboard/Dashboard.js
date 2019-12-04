@@ -1,9 +1,11 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React,  { useState } from 'react';
+
 import './Dashboard.css';
 import {Dropdown}  from 'react-bootstrap';
 import {DropdownButton}  from 'react-bootstrap';
-import Modal from 'react-modal';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
+import {Form,Row,Col} from 'react-bootstrap';
 
 const leagues_data = [{id:"789", name:"נוער דרום א"},{id:"235",name:"נערים מרכז ב"},{id:"134",name:"נערים צפון ג"}]
 const games_data = [
@@ -63,6 +65,7 @@ class Dashboard extends React.Component {
 
                     )})}
                 </div>
+                
             </div>
             
         )
@@ -70,44 +73,62 @@ class Dashboard extends React.Component {
     }
 }
 
-const customStyles = {
-    content : {
-      top                   : '50%',
-      left                  : '50%',
-      right                 : 'auto',
-      bottom                : 'auto',
-      marginRight           : '-50%',
-      transform             : 'translate(-50%, -50%)'
-    }
-  };
 
-  Modal.setAppElement(document.getElementById('root'))
-class GameCard extends React.Component {
-
-    render(){
-        return(
-            <button
-            id = "modelgame"
-            type="button"
-            style={{width:"100%", maxWidth:"800px"}} 
-            key={this.props.id} 
-            className="list-group-item list-group-item-action"
-            //onClick= {}
-            >
-                <div>
-                    <h5>{this.props.team1name} - {this.props.team2name}</h5>
-                    <div className="d-flex justify-content-between" style={{fontSize:"0.7em"}}>
-                        <div> מחזור: {this.props.round} </div>
-                        <div>{this.props.date} - {this.props.time}</div>
-                        <div>{this.props.field_Name}</div> 
-                    </div>
-                </div>
-            </button>
-        )
-    }
-
-
-}
+function GameCard(props) {
+    const [show, setShow] = useState(false);
+  
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+  
+    return (
+      <>
+        <Button
+        id = "modelgame"
+        type="button"
+        style={{width:"100%", maxWidth:"800px"}} 
+        key={props.id} 
+        className="list-group-item list-group-item-action"
+        onClick= { handleShow}
+        >
+        <div>
+            <h5>{props.team1name} - {props.team2name}</h5>
+            <div className="d-flex justify-content-between" style={{fontSize:"0.7em"}}>
+                <div> מחזור: {props.round} </div>
+                <div>{props.date} - {props.time}</div>
+                <div>{props.field_Name}</div> 
+            </div>
+        </div>
+        </Button>
+  
+        <Modal show={show} onHide={handleClose} centered="true">
+          <Modal.Header >
+            <Modal.Title  style={{width:'100%', textAlign:'center'}}>{props.team1name} - {props.team2name}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form>
+                <Row>
+                    <Col>
+                    <Form.Control placeholder={props.team2name} />
+                    </Col>
+                    <Col>
+                    <Form.Control placeholder={props.team1name} />
+                    </Col>
+                </Row>
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              בטל
+            </Button>
+            <Button variant="primary" onClick={handleClose}>
+              שמור
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </>
+    );
+  }
+  
 
 
 
